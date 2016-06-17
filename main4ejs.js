@@ -1,16 +1,17 @@
 var express = require("express");
+var path = require('path');
 var app = express();
 
 app.set("port", process.env.PORT || 80);
 
 //设置ejs视图引擎
-// var path = require('path');
 // app.set('views', path.join(__dirname, 'public'));
 
-//app.set('views', __dirname);
 app.engine('.ejs', require('ejs').__express);
 app.set('view engine', 'ejs');  
 
+//静态文件处理
+app.use( express.static( path.join(__dirname, 'public') ) );
 
 
 app.get("/", function( req, res ){
