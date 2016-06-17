@@ -3,24 +3,33 @@ var app = express();
 
 app.set("port", process.env.PORT || 80);
 
+//设置ejs视图引擎
+// var path = require('path');
+// app.set('views', path.join(__dirname, 'public'));
+
+//app.set('views', __dirname);
+app.engine('.ejs', require('ejs').__express);
+app.set('view engine', 'ejs');  
+
+
+
 app.get("/", function( req, res ){
-	res.type("text/plain");
-	res.send("My WebSite");
+	res.render("home", {
+		"title"	:	"HOME",
+		"body"	:	"My WebSite"
+	});
 });
+
 
 app.get("/about", function( req, res ){
-	res.type("text/plain");
-	res.send("About My WebSite");
+	res.render("about");
 });
-
-
 
 
 //定制404页面
 app.use(function( req, res ){
-	res.type("text/plain");
 	res.status(404);
-	res.send("404 - not found");
+	res.render("404");
 
 });
 
@@ -28,9 +37,8 @@ app.use(function( req, res ){
 app.use(function( err, req, res, next ){
 	console.error(err.stack);
 	
-	res.type("text/plain");
 	res.status(500);
-	res.send("500 - Server Error");
+	res.render("500");
 	
 });
 

@@ -9,6 +9,7 @@
   "author": "dannyxu100",
   "license": "MIT",
   "dependencies": {
+    "ejs": "^2.4.2",
     "express": "^4.14.0"
   }
 }
